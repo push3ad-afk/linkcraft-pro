@@ -1,16 +1,57 @@
-# React + Vite
+# ✨ LinkCraft Pro
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> **Build a stunning Link-in-Bio page in 30 seconds. Export HTML. Own it forever.**
 
-Currently, two official plugins are available:
+The free, open-source alternative to Linktree — with premium themes and zero hosting costs.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🔗 **[Try it live →](https://push3ad-afk.github.io/linkcraft-pro/)**
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Why LinkCraft Pro?
 
-## Expanding the ESLint configuration
+| Feature | Linktree | LinkCraft Pro |
+|---------|----------|---------------|
+| Price | $5-24/month | **Free** (Pro: $9 one-time) |
+| Own your code | ❌ | ✅ |
+| No sign-up | ❌ | ✅ |
+| Custom themes | Limited | ✅ Glassmorphism, Cyberpunk |
+| Data tracking | They track you | **Zero data collection** |
+| Export HTML | ❌ | ✅ Self-contained file |
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🎨 Premium Themes
+
+### Free
+- **Minimalist** — Clean, modern, light
+- **Midnight** — Dark mode elegance
+
+### Pro ($9 one-time)
+- **Glassmorphism** — Frosted glass with vibrant gradients
+- **Cyberpunk** — Neon glow, futuristic vibes
+- **All future themes** — Included forever
+
+## 🚀 Features
+
+- ⚡ **Instant Preview** — Live phone mockup shows changes in real-time
+- 🎨 **4 Premium Themes** — From minimal to cyberpunk
+- 📦 **Export Pure HTML** — A single file, host anywhere for free
+- 🔒 **Privacy First** — Everything stays in your browser
+- 📱 **Mobile Optimized** — Looks perfect on every screen
+- 💰 **Zero Hosting Costs** — Static HTML = free hosting on GitHub Pages, Netlify, Vercel
+
+## 🛠️ Run Locally
+
+```bash
+git clone https://github.com/push3ad-afk/linkcraft-pro.git
+cd linkcraft-pro
+npm install
+npm run dev
+```
+
+## 📄 License
+
+MIT — Use it however you want.
+
+---
+
+**[→ Try LinkCraft Pro Now](https://push3ad-afk.github.io/linkcraft-pro/)**
