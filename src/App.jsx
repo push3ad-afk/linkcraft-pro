@@ -18,7 +18,10 @@ function App() {
     name: 'Alex Developer',
     description: 'Building tools for the future. AI Enthusiast & Frontend dev.',
     avatar: 'https://i.pravatar.cc/150?img=11',
-    theme: 'light',
+    theme: 'minimalist',
+    removeBranding: false,
+    googleAnalyticsId: '',
+    metaPixelId: ''
   });
 
   const [links, setLinks] = useState([
@@ -90,12 +93,51 @@ a.l:hover{transform:translateY(-2px);filter:brightness(1.1)}
 .f{margin-top:48px;font-size:11px;color:var(--sub);opacity:.5}
 .f a{color:inherit}`;
 
+    let trackingHead = '';
+    let trackingBody = '';
+
+    if (proUnlocked && profile.googleAnalyticsId) {
+      trackingHead += `
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=${profile.googleAnalyticsId}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '${profile.googleAnalyticsId}');
+  </script>`;
+    }
+
+    if (proUnlocked && profile.metaPixelId) {
+      trackingHead += `
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '${profile.metaPixelId}');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=${profile.metaPixelId}&ev=PageView&noscript=1"
+  /></noscript>`;
+    }
+
+    // Builder badge
+    const badgeHTML = (proUnlocked && profile.removeBranding) ? '' :
+      `<p class="f">Built with <a href="${window.location.href}" target="_blank">LinkCraft Pro</a></p>`;
+
     const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>${profile.name} | Links</title>
+<title>${profile.name} | Links</title>${trackingHead}
 <style>${css}</style>
 </head>
 <body data-theme="${profile.theme}">
@@ -104,7 +146,7 @@ a.l:hover{transform:translateY(-2px);filter:brightness(1.1)}
 <h1>${profile.name}</h1>
 <p class="d">${profile.description}</p>
 ${links.map((l) => `<a href="${l.url}" class="l" target="_blank" rel="noopener noreferrer">${l.title}</a>`).join('\n')}
-<p class="f">Built with <a href="${window.location.href}" target="_blank">LinkCraft Pro</a></p>
+${badgeHTML}
 </div>
 </body>
 </html>`;
@@ -280,6 +322,9 @@ ${links.map((l) => `<a href="${l.url}" class="l" target="_blank" rel="noopener n
                 <li><span className="check">✓</span> Mobile responsive</li>
                 <li><span className="lock">🔒</span> Glassmorphism theme</li>
                 <li><span className="lock">🔒</span> Cyberpunk theme</li>
+                <li><span className="lock">🔒</span> Remove "Built with LinkCraft Pro" branding</li>
+                <li><span className="lock">🔒</span> Google Analytics Integration</li>
+                <li><span className="lock">🔒</span> Meta (Facebook) Pixel Integration</li>
               </ul>
               <div className="pricing-cta">
                 <button className="btn btn-secondary" onClick={() => setView('editor')}>
@@ -299,10 +344,11 @@ ${links.map((l) => `<a href="${l.url}" class="l" target="_blank" rel="noopener n
               <p className="pricing-desc">Unlock all premium themes forever. One payment, no strings attached.</p>
               <ul className="pricing-features">
                 <li><span className="check">✓</span> Everything in Free</li>
-                <li><span className="check">✓</span> Glassmorphism theme</li>
-                <li><span className="check">✓</span> Cyberpunk theme</li>
-                <li><span className="check">✓</span> Future themes included</li>
-                <li><span className="check">✓</span> Priority support</li>
+                <li><span className="check">✓</span> Glassmorphism & Cyberpunk themes</li>
+                <li><span className="check">✓</span> Remove "Built with LinkCraft Pro" branding</li>
+                <li><span className="check">✓</span> Google Analytics Integration</li>
+                <li><span className="check">✓</span> Meta (Facebook) Pixel Integration</li>
+                <li><span className="check">✓</span> All future themes included</li>
               </ul>
               <div className="pricing-cta">
                 <button className="btn btn-primary" onClick={() => { setView('editor'); setShowModal(true); }}>
@@ -396,8 +442,8 @@ ${links.map((l) => `<a href="${l.url}" class="l" target="_blank" rel="noopener n
           </div>
           <div className="theme-grid">
             <button
-              className={`theme-btn theme-light ${profile.theme === 'light' ? 'active' : ''}`}
-              onClick={() => handleThemeSelect('light')}
+              className={`theme-btn theme-light ${profile.theme === 'minimalist' ? 'active' : ''}`}
+              onClick={() => handleThemeSelect('minimalist')}
             >
               Minimalist
             </button>
@@ -447,6 +493,51 @@ ${links.map((l) => `<a href="${l.url}" class="l" target="_blank" rel="noopener n
             </div>
           ))}
           <button onClick={handleAddLink} className="add-link-btn">+ Add New Link</button>
+        </div>
+
+        {/* PRO SETTINGS SECTION */}
+        <div className="section-card">
+          <div className="section-head">
+            Marketing & Analytics
+            {!proUnlocked && <span className="pro-badge" style={{ position: 'relative', top: '0', right: '0' }}>PRO</span>}
+          </div>
+
+          <div className="form-group checkbox-group" onClick={() => !proUnlocked && setShowModal(true)}>
+            <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+              <input
+                type="checkbox"
+                checked={profile.removeBranding}
+                onChange={(e) => setProfile({ ...profile, removeBranding: e.target.checked })}
+                disabled={!proUnlocked}
+              />
+              Remove "Built with LinkCraft Pro" branding
+              {!proUnlocked && <span className="lock">🔒</span>}
+            </label>
+          </div>
+
+          <div className="form-group" onClick={() => !proUnlocked && setShowModal(true)}>
+            <label>Google Analytics Measurement ID {!proUnlocked && <span className="lock">🔒</span>}</label>
+            <input
+              type="text"
+              placeholder="e.g. G-XXXXXXX"
+              onFocus={(e) => { if (!proUnlocked) { e.target.blur(); setShowModal(true); } }}
+              value={profile.googleAnalyticsId}
+              onChange={(e) => proUnlocked && setProfile({ ...profile, googleAnalyticsId: e.target.value })}
+              className={!proUnlocked ? 'input-locked' : ''}
+            />
+          </div>
+
+          <div className="form-group" onClick={() => !proUnlocked && setShowModal(true)}>
+            <label>Meta (Facebook) Pixel ID {!proUnlocked && <span className="lock">🔒</span>}</label>
+            <input
+              type="text"
+              placeholder="e.g. 123456789"
+              onFocus={(e) => { if (!proUnlocked) { e.target.blur(); setShowModal(true); } }}
+              value={profile.metaPixelId}
+              onChange={(e) => proUnlocked && setProfile({ ...profile, metaPixelId: e.target.value })}
+              className={!proUnlocked ? 'input-locked' : ''}
+            />
+          </div>
         </div>
 
         {/* Toolbar */}
@@ -510,8 +601,8 @@ function PayPalModal({ onClose, onUnlock }) {
         <div className="modal-icon">✨</div>
         <h3 className="modal-title">Unlock Pro Themes</h3>
         <p className="modal-desc">
-          Get access to Glassmorphism, Cyberpunk, and all future premium themes
-          with a single one-time payment. No subscription, no hidden fees.
+          Get access to premium themes, remove our branding, and unlock advanced
+          marketing analytics (Google Analytics & Meta Pixel) with a single one-time payment.
         </p>
         <div className="modal-price">{PRO_PRICE}</div>
         <button className="paypal-btn" onClick={onUnlock}>
