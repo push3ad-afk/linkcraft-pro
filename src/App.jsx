@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import './App.css';
 
 // ─── CONFIG ────────────────────────────────────────────
@@ -10,6 +10,9 @@ const PRO_PRICE = '$9';
 function App() {
   const [view, setView] = useState('landing'); // 'landing', 'editor', 'impressum', 'privacy'
   const [showModal, setShowModal] = useState(false);
+  const dragItem = useRef();
+  const dragOverItem = useRef();
+
   const [proUnlocked, setProUnlocked] = useState(() => {
     return localStorage.getItem('linkcraft_pro') === 'true';
   });
@@ -47,6 +50,15 @@ function App() {
 
   const handleDeleteLink = (id) => {
     setLinks(links.filter((link) => link.id !== id));
+  };
+
+  const handleDragSort = () => {
+    let _links = [...links];
+    const draggedItemContent = _links.splice(dragItem.current, 1)[0];
+    _links.splice(dragOverItem.current, 0, draggedItemContent);
+    dragItem.current = null;
+    dragOverItem.current = null;
+    setLinks(_links);
   };
 
   const isProTheme = (theme) => theme === 'glass' || theme === 'cyberpunk';
@@ -473,8 +485,19 @@ ${badgeHTML}
         {/* Links */}
         <div className="section-card">
           <div className="section-head">Your Links</div>
-          {links.map((link) => (
-            <div key={link.id} className="link-editor-item">
+          {links.map((link, index) => (
+            <div
+              key={link.id}
+              className="link-editor-item"
+              draggable
+              onDragStart={(e) => (dragItem.current = index)}
+              onDragEnter={(e) => (dragOverItem.current = index)}
+              onDragEnd={handleDragSort}
+              onDragOver={(e) => e.preventDefault()}
+            >
+              <div className="drag-handle" style={{ cursor: 'grab', color: 'var(--text-muted)', fontSize: '18px', lineHeight: '1', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '20px', width: '100%', opacity: 0.5 }}>
+                ⋮⋮
+              </div>
               <button onClick={() => handleDeleteLink(link.id)} className="delete-btn">✕</button>
               <input
                 type="text"
