@@ -8,7 +8,7 @@ const PRO_PRICE = '$9';
 // ───────────────────────────────────────────────────────
 
 function App() {
-  const [view, setView] = useState('landing'); // 'landing' or 'editor'
+  const [view, setView] = useState('landing'); // 'landing', 'editor', 'impressum', 'privacy'
   const [showModal, setShowModal] = useState(false);
   const [proUnlocked, setProUnlocked] = useState(() => {
     return localStorage.getItem('linkcraft_pro') === 'true';
@@ -316,6 +316,11 @@ ${links.map((l) => `<a href="${l.url}" class="l" target="_blank" rel="noopener n
         {/* Footer */}
         <footer className="footer">
           <p>© 2026 LinkCraft Pro. Built with 💜 and zero hosting costs.</p>
+          <div className="footer-links">
+            <a href="#" onClick={(e) => { e.preventDefault(); setView('impressum'); }}>Impressum</a>
+            <span>·</span>
+            <a href="#" onClick={(e) => { e.preventDefault(); setView('privacy'); }}>Datenschutz</a>
+          </div>
         </footer>
 
         {/* PayPal Modal */}
@@ -324,6 +329,16 @@ ${links.map((l) => `<a href="${l.url}" class="l" target="_blank" rel="noopener n
         )}
       </>
     );
+  }
+
+  // ═══════════ IMPRESSUM ═══════════
+  if (view === 'impressum') {
+    return <ImpressumPage onBack={() => setView('landing')} />;
+  }
+
+  // ═══════════ DATENSCHUTZ ═══════════
+  if (view === 'privacy') {
+    return <PrivacyPage onBack={() => setView('landing')} />;
   }
 
   // ═══════════ EDITOR VIEW ═══════════
@@ -505,6 +520,148 @@ function PayPalModal({ onClose, onUnlock }) {
         <p className="modal-note">
           Clicking will open PayPal in a new tab. After payment, your Pro access
           is unlocked instantly. One-time payment — forever access.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+// ═══════════ IMPRESSUM PAGE ═══════════
+function ImpressumPage({ onBack }) {
+  return (
+    <div className="legal-page">
+      <nav className="navbar">
+        <div className="nav-logo" onClick={onBack} style={{ cursor: 'pointer' }}>LinkCraft Pro</div>
+        <button className="btn btn-secondary btn-sm" onClick={onBack}>← Zurück</button>
+      </nav>
+      <div className="legal-content">
+        <h1>Impressum</h1>
+        <h2>Angaben gemäß § 5 TMG</h2>
+        <p>
+          Alp Sen<br />
+          Scheibenstr. 8<br />
+          83278 Traunstein<br />
+          Deutschland
+        </p>
+
+        <h2>Kontakt</h2>
+        <p>
+          E-Mail: alp@linkcraft-pro.com
+        </p>
+
+        <h2>Umsatzsteuer-ID</h2>
+        <p>
+          Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz:<br />
+          Wird nachgereicht / Kleinunternehmerregelung gem. § 19 UStG
+        </p>
+
+        <h2>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
+        <p>
+          Alp Sen<br />
+          Scheibenstr. 8<br />
+          83278 Traunstein
+        </p>
+
+        <h2>Streitschlichtung</h2>
+        <p>
+          Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:
+          <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer"> https://ec.europa.eu/consumers/odr/</a>.<br />
+          Unsere E-Mail-Adresse finden Sie oben im Impressum.
+        </p>
+        <p>
+          Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer
+          Verbraucherschlichtungsstelle teilzunehmen.
+        </p>
+
+        <h2>Haftung für Inhalte</h2>
+        <p>
+          Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten
+          nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als
+          Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde
+          Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige
+          Tätigkeit hinweisen.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+// ═══════════ DATENSCHUTZ PAGE ═══════════
+function PrivacyPage({ onBack }) {
+  return (
+    <div className="legal-page">
+      <nav className="navbar">
+        <div className="nav-logo" onClick={onBack} style={{ cursor: 'pointer' }}>LinkCraft Pro</div>
+        <button className="btn btn-secondary btn-sm" onClick={onBack}>← Zurück</button>
+      </nav>
+      <div className="legal-content">
+        <h1>Datenschutzerklärung</h1>
+
+        <h2>1. Datenschutz auf einen Blick</h2>
+        <h3>Allgemeine Hinweise</h3>
+        <p>
+          Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren
+          personenbezogenen Daten passiert, wenn Sie diese Website besuchen.
+        </p>
+
+        <h3>Datenerfassung auf dieser Website</h3>
+        <p>
+          <strong>Wer ist verantwortlich für die Datenerfassung auf dieser Website?</strong><br />
+          Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber:
+          Alp Sen, Scheibenstr. 8, 83278 Traunstein, Deutschland.
+        </p>
+
+        <h2>2. Allgemeine Hinweise und Pflichtinformationen</h2>
+        <h3>Datenschutz</h3>
+        <p>
+          Die Betreiber dieser Seiten nehmen den Schutz Ihrer persönlichen Daten sehr ernst.
+          Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend den gesetzlichen
+          Datenschutzvorschriften sowie dieser Datenschutzerklärung.
+        </p>
+
+        <h3>Keine Datenerhebung durch die Anwendung</h3>
+        <p>
+          <strong>LinkCraft Pro ist eine vollständig clientseitige Anwendung.</strong> Das bedeutet:
+        </p>
+        <ul>
+          <li>Es werden <strong>keine personenbezogenen Daten</strong> an unsere Server übermittelt.</li>
+          <li>Es werden <strong>keine Cookies</strong> gesetzt.</li>
+          <li>Es gibt <strong>keine Nutzerregistrierung</strong> und <strong>kein Tracking</strong>.</li>
+          <li>Alle Daten, die Sie in den Editor eingeben (Name, Bio, Links), verbleiben
+            ausschließlich in Ihrem Browser (localStorage) und werden zu keinem Zeitpunkt
+            an Dritte übertragen.</li>
+          <li>Es werden <strong>keine Analytics-Tools</strong> (Google Analytics o.ä.) eingesetzt.</li>
+        </ul>
+
+        <h2>3. Zahlungsabwicklung</h2>
+        <p>
+          Für den Kauf der Pro-Version wird der Nutzer zu <strong>PayPal</strong> (PayPal (Europe)
+          S.à r.l. et Cie, S.C.A.) weitergeleitet. Die Zahlungsabwicklung erfolgt ausschließlich
+          über PayPal. Wir erhalten dabei lediglich eine Zahlungsbestätigung. Die Datenschutz­bestimmungen
+          von PayPal finden Sie unter:{' '}
+          <a href="https://www.paypal.com/de/webapps/mpp/ua/privacy-full" target="_blank" rel="noopener noreferrer">
+            paypal.com/de/privacy
+          </a>.
+        </p>
+
+        <h2>4. Hosting</h2>
+        <p>
+          Diese Website wird gehostet von Surge.sh / GitHub Pages. Beim Besuch der Website
+          erfasst der Hosting-Anbieter automatisch in sogenannten Server-Logfiles Informationen,
+          die Ihr Browser übermittelt (z.B. IP-Adresse, Browsertyp, Zeitpunkt des Zugriffs).
+          Diese Daten werden nicht mit anderen Datenquellen zusammengeführt.
+        </p>
+
+        <h2>5. Ihre Rechte</h2>
+        <p>
+          Sie haben jederzeit das Recht auf unentgeltliche Auskunft über Ihre gespeicherten
+          personenbezogenen Daten, deren Herkunft und Empfänger und den Zweck der Datenverarbeitung
+          sowie ein Recht auf Berichtigung oder Löschung dieser Daten. Da wir jedoch keine
+          personenbezogenen Daten speichern, entfällt dies in der Praxis.
+        </p>
+
+        <p style={{ marginTop: '40px', color: 'var(--text-muted)', fontSize: '13px' }}>
+          Stand: März 2026
         </p>
       </div>
     </div>

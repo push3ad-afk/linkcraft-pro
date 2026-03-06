@@ -433,6 +433,114 @@
   font-size: 13px;
 }
 
+.footer-links {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.footer-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 12px;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: var(--accent-primary);
+}
+
+.footer-links span {
+  color: var(--border-hover);
+  font-size: 10px;
+}
+
+/* ═══════════════════════════════════════════════
+   LEGAL PAGES (Impressum & Datenschutz)
+   ═══════════════════════════════════════════════ */
+.legal-page {
+  min-height: 100vh;
+  background: var(--bg-primary);
+}
+
+.legal-content {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 60px 40px 80px;
+}
+
+.legal-content h1 {
+  font-family: var(--font-heading);
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.legal-content h2 {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 36px;
+  margin-bottom: 12px;
+  color: var(--text-primary);
+}
+
+.legal-content h3 {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 24px;
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+}
+
+.legal-content p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 12px;
+}
+
+.legal-content ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 12px;
+}
+
+.legal-content ul li {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  padding: 4px 0 4px 20px;
+  position: relative;
+}
+
+.legal-content ul li::before {
+  content: '–';
+  position: absolute;
+  left: 0;
+  color: var(--accent-primary);
+}
+
+.legal-content a {
+  color: var(--accent-primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.legal-content a:hover {
+  color: var(--accent-secondary);
+}
+
+.btn-sm {
+  padding: 6px 14px !important;
+  font-size: 12px !important;
+}
+
 /* ═══════════════════════════════════════════════
    EDITOR VIEW
    ═══════════════════════════════════════════════ */
